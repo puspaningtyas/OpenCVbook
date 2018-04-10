@@ -5,16 +5,13 @@
  */
 package OpenCVApps;
 
-import chapter3.Face;
-import java.awt.BorderLayout;
+import chapter3.FaceImage;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import static org.bytedeco.javacpp.opencv_imgcodecs.cvLoadImage;
 import org.bytedeco.javacv.Frame;
@@ -47,6 +44,7 @@ public class OpenCVApps extends javax.swing.JFrame {
         imageMenu = new javax.swing.JMenu();
         FaceMenu = new javax.swing.JMenu();
         faceDetectionMenuItem = new javax.swing.JMenuItem();
+        FaceLandMarkDetectionMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
 
@@ -65,6 +63,14 @@ public class OpenCVApps extends javax.swing.JFrame {
             }
         });
         FaceMenu.add(faceDetectionMenuItem);
+
+        FaceLandMarkDetectionMenuItem.setText("FaceLandMarkDetection");
+        FaceLandMarkDetectionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FaceLandMarkDetectionMenuItemActionPerformed(evt);
+            }
+        });
+        FaceMenu.add(FaceLandMarkDetectionMenuItem);
 
         imageMenu.add(FaceMenu);
 
@@ -91,17 +97,9 @@ public class OpenCVApps extends javax.swing.JFrame {
         //In response to a button click:
         int returnVal = fc.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-//            JPanel panel = new JPanel();
-//            File file = fc.getSelectedFile();
-//            opencv_core.IplImage img = cvLoadImage(file.getAbsolutePath());
-//            //img = Face.detect(img);
-//            BufferedImage image = bufferedFromImage(img);
-//            JLabel label = new JLabel(new ImageIcon(image));
-//            panel.add(label);
-//            this.getContentPane().add(label,BorderLayout.CENTER);
             JPanel panel = new JPanel();
-            IplImage img = cvLoadImage(fc.getSelectedFile().getAbsolutePath());
-            img = Face.detect(img);
+            FaceImage face = new FaceImage(fc.getSelectedFile());
+            IplImage img = face.cvHaarClassifierDetection();
             if (img != null) {
                 BufferedImage image = bufferedFromImage(img);
                 JLabel label = new JLabel(new ImageIcon(image));
@@ -119,6 +117,30 @@ public class OpenCVApps extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void FaceLandMarkDetectionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FaceLandMarkDetectionMenuItemActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        //Create a file chooser
+        JFileChooser fc = new JFileChooser();
+        //In response to a button click:
+        int returnVal = fc.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            JPanel panel = new JPanel();
+            FaceImage face = new FaceImage(fc.getSelectedFile());
+            IplImage img = face.cvFaceLandMarksDetection();
+            if (img != null) {
+                BufferedImage image = bufferedFromImage(img);
+                JLabel label = new JLabel(new ImageIcon(image));
+                panel.add(label);
+                this.getContentPane().removeAll();
+                this.getContentPane().add(panel);
+                this.setVisible(true);
+            } else{
+                JOptionPane.showMessageDialog(this, "No Faces");
+            }
+        }
+    }//GEN-LAST:event_FaceLandMarkDetectionMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +188,7 @@ public class OpenCVApps extends javax.swing.JFrame {
         return image;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem FaceLandMarkDetectionMenuItem;
     private javax.swing.JMenu FaceMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem faceDetectionMenuItem;
