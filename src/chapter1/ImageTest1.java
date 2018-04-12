@@ -14,6 +14,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -36,7 +40,7 @@ public class ImageTest1 {
             JPanel panel = new JPanel();
             File file = fc.getSelectedFile();
             Mat img = Imgcodecs.imread(file.getAbsolutePath());
-            Image image = toBufferedImage(img);
+            Image image = toBufferedImageFromMat(img);
             JLabel label = new JLabel(new ImageIcon(image));
             panel.add(label);
 
@@ -65,6 +69,20 @@ public class ImageTest1 {
                 rows(), type);
         final byte[] targetPixels = ((DataBufferByte) image.getRaster().
                 getDataBuffer()).getData();
+        System.arraycopy(buffer, 0, targetPixels, 0, buffer.length);
+        return image;
+    }
+    
+    public static Image toBufferedImageFromMat(Mat matrix) {
+        int type = BufferedImage.TYPE_BYTE_GRAY;
+        if (matrix.channels()>1){
+            type = BufferedImage.TYPE_3BYTE_BGR;
+        }
+        int bufferSize= matrix.channels()*matrix.cols()*matrix.rows();
+        byte buffer[]= new byte[bufferSize];
+        matrix.get(0, 0, buffer);
+        BufferedImage image = new BufferedImage(matrix.cols(), matrix.rows(), type);
+        byte targetPixels[] = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(buffer, 0, targetPixels, 0, buffer.length);
         return image;
     }

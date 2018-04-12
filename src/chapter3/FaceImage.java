@@ -125,7 +125,7 @@ public class FaceImage {
                 src,
                 cascade,
                 storage,
-                1.5,
+                1.1, // image scale
                 3,
                 CV_HAAR_DO_ROUGH_SEARCH,
                 minFeatureSize,
@@ -142,7 +142,7 @@ public class FaceImage {
                     cvPoint(r.x(), r.y()),
                     cvPoint(r.width() + r.x(), r.height() + r.y()),
                     opencv_core.CvScalar.RED,
-                    2,
+                    1,
                     CV_AA,
                     0);
         }
@@ -168,7 +168,7 @@ public class FaceImage {
                     src,
                     cascade,
                     storage,
-                    1.5,
+                    1.1, // image scale
                     3,
                     CV_HAAR_DO_ROUGH_SEARCH,
                     minFeatureSize,
