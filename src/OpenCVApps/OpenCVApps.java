@@ -40,13 +40,17 @@ public class OpenCVApps extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         imageMenu = new javax.swing.JMenu();
-        FaceMenu = new javax.swing.JMenu();
+        filterMenu = new javax.swing.JMenu();
+        faceMenu = new javax.swing.JMenu();
         faceDetectionMenuItem = new javax.swing.JMenuItem();
         FaceLandMarkDetectionMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Java Apps with OpenCV 3.4.1");
@@ -54,7 +58,10 @@ public class OpenCVApps extends javax.swing.JFrame {
 
         imageMenu.setText("Image");
 
-        FaceMenu.setText("Face");
+        filterMenu.setText("Filter");
+        imageMenu.add(filterMenu);
+
+        faceMenu.setText("Face");
 
         faceDetectionMenuItem.setText("FaceDetection");
         faceDetectionMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +69,7 @@ public class OpenCVApps extends javax.swing.JFrame {
                 faceDetectionMenuItemActionPerformed(evt);
             }
         });
-        FaceMenu.add(faceDetectionMenuItem);
+        faceMenu.add(faceDetectionMenuItem);
 
         FaceLandMarkDetectionMenuItem.setText("FaceLandMarkDetection");
         FaceLandMarkDetectionMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -70,9 +77,9 @@ public class OpenCVApps extends javax.swing.JFrame {
                 FaceLandMarkDetectionMenuItemActionPerformed(evt);
             }
         });
-        FaceMenu.add(FaceLandMarkDetectionMenuItem);
+        faceMenu.add(FaceLandMarkDetectionMenuItem);
 
-        imageMenu.add(FaceMenu);
+        imageMenu.add(faceMenu);
 
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -189,11 +196,13 @@ public class OpenCVApps extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem FaceLandMarkDetectionMenuItem;
-    private javax.swing.JMenu FaceMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem faceDetectionMenuItem;
+    private javax.swing.JMenu faceMenu;
+    private javax.swing.JMenu filterMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu imageMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package chapter3;
 
+import chapter2.Image;
 import java.io.File;
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.flandmark;
@@ -42,9 +43,8 @@ import static org.bytedeco.javacpp.opencv_objdetect.CV_HAAR_DO_ROUGH_SEARCH;
  *
  * @author user only
  */
-public class FaceImage {
+public class FaceImage extends Image{
 
-    private File imageFile;
     private IplImage image;
     private File faceCascadeFile = new File("D:\\Users\\admin\\my Java\\OpenCVBook\\lib\\haarcascade_frontalface_alt.xml");
     private File flandmarkModelFile = new File("D:\\Users\\admin\\my Java\\OpenCVBook\\lib\\flandmark_model.dat");
@@ -53,25 +53,12 @@ public class FaceImage {
     }
 
     public FaceImage(File imageFile) {
-        this.imageFile = imageFile;
+        super(imageFile);
         this.image = cvLoadImage(imageFile.getAbsolutePath());
     }
 
     
-    /**
-     * @return the imageFile
-     */
-    public File getImageFile() {
-        return imageFile;
-    }
-
-    /**
-     * @param aImageFile the imageFile to set
-     */
-    public void setImageFile(File aImageFile) {
-        imageFile = aImageFile;
-    }
-
+    
     /**
      * @return the image
      */
